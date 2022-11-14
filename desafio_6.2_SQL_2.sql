@@ -75,6 +75,16 @@ SELECT * FROM INSCRITOS WHERE cantidad = (SELECT MAX (cantidad) FROM INSCRITOS W
 
 --8. Cuantas personas en promedio se inscriben en un dia?
 
-SELECT AVG(promedio_inscritos) AS resultado FROM (SELECT fecha, SUM(cantidad) AS promedio_inscritos FROM INSCRITOS GROUP BY fecha);
+SELECT ROUND (AVG(cantidad)) FROM (SELECT SUM(cantidad) AS cantidad FROM inscritos GROUP BY fecha) inscritos;
 
 
+-- 9. Que dias se inscribieron mas de 50 personas?
+SELECT fecha, SUM(cantidad) FROM inscritos GROUP BY fecha HAVING sum(cantidad) > 50;
+
+-- 10. Cuántas personas se registraron en promedio cada día a partir del tercer día?
+
+SELECT AVG (cantidad) AS "promedio", fecha FROM inscritos WHERE > '01/03/2021' GROUP BY fecha ORDER BY fecha ASC;
+
+
+
+-- fin del trabajo
